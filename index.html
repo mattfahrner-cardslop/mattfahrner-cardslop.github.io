@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cardslop</title>
+<p>Opening Cardslop…</p>
+<script>
+// This entry never changes. Host invitations bypass it and name their exact build.
+(async () => {
+  let path = "/p/1/";
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  const controller = new AbortController();
+  try {
+    const response = await fetch("/updates/stable/index.json", { cache: "no-store", signal: controller.signal });
+    if (!response.ok) throw new Error("Feed unavailable");
+    const envelope = await response.json();
+    const release = JSON.parse(atob(envelope.payload));
+    if (release.schema !== 1 || typeof release.version !== "string" ||
+        !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(release.version)) throw new Error("Invalid version");
+    const destination = `/v/${release.version}/`;
+    const guest = await fetch(destination, { method: "HEAD", cache: "no-store", signal: controller.signal });
+    if (!guest.ok) throw new Error("Guest unavailable");
+    path = destination;
+  } catch { /* The frozen guest remains usable when the feed is unavailable. */ }
+  finally { clearTimeout(timeout); }
+  location.replace(path + location.hash);
+})();
+</script>

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "protocol": 1,
+  "source": "06ef396491dc5e6d28c2eddfd52e01e837153508",
+  "signaling": "https://cardslop-signaling.mattfahrner.workers.dev",
+  "guestOrigin": "https://mattfahrner-cardslop.github.io",
+  "version": "0.0.19",
+  "files": {
+    "index.html": "d8f3967e643fc67e236d8e7114b1e25e302b55280ad99ceba49f79b3eee55dfe",
+    "app.js": "ee3ed37a943471108efe8d606346f65baabfb63d84673711cccebfe66ce3b6d9"
+  }
+}
